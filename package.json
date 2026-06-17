@@ -19,6 +19,9 @@
   },
   "homepage": "https://github.com/Hubert10210/McLev#readme",
   "dependencies": {
-    "express": "^5.2.1"
+    "dotenv": "^17.4.2",
+    "express": "^5.2.1",
+    "pg": "^8.21.0",
+    "readline-sync": "^1.4.10"
   }
 }
