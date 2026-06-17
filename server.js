@@ -2,6 +2,7 @@ const express = require("express");
 const readline = require("readline");
 const path = require("path");
 const { Client, Pool } = require("pg");
+const bcrypt = require("bcrypt");
 require("dotenv").config();
 
 const app = express();
@@ -16,6 +17,7 @@ const rl = readline.createInterface({
 });
 
 const usernameRegex = /^[a-zA-Z0-9_.-]+$/;
+let pool;
 
 
 app.use(express.json());
@@ -26,7 +28,7 @@ app.use(router);
 
 rl.on("line", (input) => {
     if (input == "stop") {
-        console.log("Server wird beendet...");
+        console.log("Server closing...");
         process.exit(0);
     }
 })
@@ -52,13 +54,85 @@ router.post("/api/getvoc", (req, res) => {
 });
 
 
+router.post("/api/register", async (req, res) => {
+    const { username, password } = req.body;
 
+    if (!usernameRegex.test(username)){
+        res.json({valid:false, reason:"Invalid_Username"});
+        return;
+    }
+    if (password.length < 8){
+        res.json({valid:false, reason:"Password_Too_Short"});
+        return;
+    }
+
+    try {
+        const hash = await bcrypt.hash(password, 12);
+
+        await pool.query(
+            "INSERT INTO users (username, password_hash) VALUES ($1, $2)",
+            [username, hash]
+        );
+        res.json({valid:true});
+    } catch (err) {
+        if (err.code === "23505") {
+            res.json({valid:false, reason:"User_Exists"});
+            return;
+        }
+        console.error(err);
+        res.json({valid:false, reason:"Server_Error"});
+        return;
+    }
+
+
+});
+
+router.post("/api/login", async (req, res) => {
+    const { username, password } = req.body;
+
+    if (!usernameRegex.test(username)){
+        res.json({valid:false, reason:"wrong"});
+        return;
+    }
+
+    const result = await pool.query(`
+        SELECT password_hash
+        FROM users
+        WHERE username = $1    
+    `, [username]);
+
+    if (result.rows.length === 0) {
+        res.json({
+            valid:false, reason:"wrong"
+        });
+        return;
+    }
+
+    const hash = result.rows[0].password_hash;
+
+    const match = await bcrypt.compare(
+        password,
+        hash
+    );
+
+    if (!match){
+        res.json({
+            valid:false, reason:"wrong"
+        });
+        return;
+    }
+
+    res.json({
+        valid: true
+    });
+
+});
 
 
 (async (password) => {
-    const pool = await initpg(password);
+    pool = await initpg(password);
     app.listen(PORT, () => {
-        console.log(`Server läuft auf http://127.0.0.1:${PORT}`);
+        console.log(`Server runs on http://127.0.0.1:${PORT}`);
     });
 })(process.env.PG_Password);
 

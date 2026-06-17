@@ -589,6 +589,32 @@ async function getBooks(){
     return data.books;
 }
 
+async function testreg(username,password) {
+    const response = await fetch("/api/register",{
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({username:username,password:password})
+    });
+
+    const data = await response.json();
+    console.log(data);
+}
+
+async function testlog(username,password) {
+    const response = await fetch("/api/login",{
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({username:username,password:password})
+    });
+
+    const data = await response.json();
+    console.log(data);
+}
+
 /*
 async function vocChosen(){
     let subject = document.getElementById("fach").value;
