@@ -499,6 +499,17 @@ async function setup(){
         bookSelectCont.appendChild(button);
     }
 
+    document.getElementById("menu-button").addEventListener("click", (e) => {
+        e.stopPropagation();
+        document.getElementById("menu").classList.toggle("opened");
+    });
+
+    document.addEventListener("click", (e) => {
+        if (!document.getElementById("menu").contains(e.target) && !document.getElementById("menu-button").contains(e.target)){
+            document.getElementById("menu").classList.remove("opened");
+        }
+    });
+
 }
 
 async function getchapters(book){
@@ -568,10 +579,8 @@ function toggleTheme(){
     darkmode = !darkmode;
     if (darkmode){
         document.getElementById("darkmode").innerHTML = "Darkmode";
-        document.body.style.backgroundColor = "rgb(40,40,40)";
     } else {
         document.getElementById("darkmode").innerHTML = "Lightmode";
-        document.body.style.backgroundColor = "white";
     }
     document.body.classList.toggle("darkmode");
     
