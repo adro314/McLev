@@ -3,6 +3,7 @@ const readline = require("readline");
 const path = require("path");
 const { Client, Pool } = require("pg");
 const bcrypt = require("bcrypt");
+const cors = require("cors");
 require("dotenv").config();
 
 const app = express();
@@ -25,6 +26,8 @@ app.use(express.json());
 app.use(express.static(path.join(__dirname,"public")));
 
 app.use(router);
+
+app.use(cors());
 
 rl.on("line", (input) => {
     if (input == "stop") {
