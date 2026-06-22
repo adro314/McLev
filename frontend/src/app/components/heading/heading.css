@@ -79,6 +79,6 @@ header.darkmode{
     background-color: rgb(40, 40, 40);
 }
 
-body.darkmode #menu-button span{
+header.darkmode #menu-button span{
     background-color: white;
 }
