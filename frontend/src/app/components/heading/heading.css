@@ -1,0 +1,9 @@
+header {
+    width: 100%;
+    height: 60px;
+    background-color: rgb(240,240,240);
+}
+
+header.darkmode{
+    background-color: rgb(60,60,60);
+}
