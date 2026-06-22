@@ -1,3 +1,5 @@
+old/
+
 #Backend gitignore
 
 backend/node_modules/
