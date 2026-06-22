@@ -2,7 +2,9 @@
 body {
     margin: 0;
     background-color: white;
+    color: black;
 }
 body.darkmode{
-    background-color: black;
+    background-color: rgb(40,40,40);
+    color: white;
 }
