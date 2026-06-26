@@ -1,0 +1,8 @@
+<button id="button" [class.darkmode]="themeService.darkmode()">
+    <div id="icon-cont">
+        <ng-content select="[icon]"></ng-content>
+    </div>
+    <div id="name-cont">
+        {{ name() }}
+    </div>
+</button>

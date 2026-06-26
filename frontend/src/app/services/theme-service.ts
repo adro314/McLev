@@ -2,7 +2,7 @@ import { effect, Service, signal } from '@angular/core';
 
 @Service()
 export class ThemeService {
-    darkmode = signal(false);
+    darkmode = signal(true);
 
     constructor(){
         effect(() =>{

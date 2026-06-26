@@ -1,5 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { ThemeService } from '../../services/theme-service';
+import { MenuService } from '../../services/menu-service';
 
 @Component({
   selector: 'app-heading',
@@ -9,6 +10,7 @@ import { ThemeService } from '../../services/theme-service';
 })
 export class Heading {
   themeService = inject(ThemeService);
+  menuService = inject(MenuService);
   
   
 }
