@@ -1,5 +1,8 @@
 @if(menuService.visible()){
     <div id="menu" [class.darkmode]="themeService.darkmode()">
+        <app-menu-button name="Login" (click)="this.navigationService.goto('/login')">
+
+        </app-menu-button>
         <app-menu-button [name]="getDarkmodeButtonName()" (click)="themeService.toggleTheme()">
             @if(themeService.darkmode()){
                 <svg

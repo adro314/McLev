@@ -24,6 +24,9 @@ header.darkmode{
 #header-center-cont{
     flex: 1;
     justify-content: center;
+    height: 100%;
+    display: flex;
+    align-items: center;
     
 }
 
