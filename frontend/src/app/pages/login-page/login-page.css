@@ -1,0 +1,21 @@
+#login-cont{
+    width: 400px;
+    padding-bottom: 50px;
+    background-color: rgb(230, 230, 230);
+    box-shadow: 0 8px 12px rgba(0,0,0,0.2);
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+#login-cont.darkmode{
+    background-color: rgb(50, 50, 50);
+}
+
+:host{
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
