@@ -1,0 +1,40 @@
+#button{
+    width: 100%;
+    height: 50px;
+
+    background-color: transparent;
+    color: black;
+
+    border: 0;
+
+    display: flex;
+    flex-direction: row;
+}
+
+#button:hover{
+    background-color: rgba(120, 120, 120,0.3);
+}
+
+#button.darkmode{
+    color: white;
+}
+
+#icon-cont{
+    flex: 3;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#name-cont{
+    flex: 7;
+    display: flex;
+    padding: 10px;
+    align-items: center;
+    font-size: 18px;
+}
+
+
+:host{
+    width: 100%;
+}

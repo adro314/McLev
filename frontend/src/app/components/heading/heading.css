@@ -1,0 +1,87 @@
+header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 60px;
+    background-color: rgb(240,240,240);
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+header.darkmode{
+    background-color: rgb(60,60,60);
+}
+
+#header-start-cont{
+    flex: 1;
+    justify-content: flex-start;
+    height: 100%;
+}
+
+#header-center-cont{
+    flex: 1;
+    justify-content: center;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    
+}
+
+#header-centered{
+    display: flex;
+    justify-content: center;
+}
+
+#header-end-cont{
+    flex: 1;
+    justify-content: flex-end;
+    height: 100%;
+    
+}
+
+#header-end{
+    display: flex;
+    justify-content: end;
+    height: 100%;
+}
+
+#logo{
+    height: 100%;
+    margin-left: 10px;
+}
+
+#title{
+    margin: 0;
+
+}
+
+#menu-button{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 3px;
+
+    background-color: transparent;
+    border: 0;
+    width: 80px;
+    height: 100%;
+    justify-self: right;
+}
+
+#menu-button:hover {
+    background-color: rgba(120, 120, 120,0.3);
+}
+
+#menu-button span{
+    width: 30px;
+    height: 4px;
+    background-color: rgb(40, 40, 40);
+}
+
+header.darkmode #menu-button span{
+    background-color: white;
+}
