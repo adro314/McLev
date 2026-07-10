@@ -1,4 +1,4 @@
-#input{
+.input{
     max-width: 190px;
     height: 44px;
     background-color: #05060f0a;
@@ -9,7 +9,7 @@
     font-size: 1rem;
     transition: border-color .3s cubic-bezier(.25,.01,.25,1) 0s, color .3s cubic-bezier(.25,.01,.25,1) 0s,background .2s cubic-bezier(.25,.01,.25,1) 0s;
 }
-#cont.darkmode #input{
+#cont.darkmode .input{
     color: white;
 }
 #label{
@@ -23,17 +23,17 @@
 #cont.darkmode #label{
     color: #ffffffb2;
 }
-#input:hover, #input:focus, #cont:hover #input{
+.input:hover, .input:focus, #cont:hover .input{
     outline: none;
     border-color: #05060f;
 }
-#cont.darkmode #input:hover, #cont.darkmode #input:focus, #cont.darkmode:hover #input{
+#cont.darkmode .input:hover, #cont.darkmode .input:focus, #cont.darkmode:hover .input{
     border-color: #ffffff;
 }
-#cont:hover #label, #input:focus{
+#cont:hover #label, .input:focus{
     color: #05060fc2;
 }
-#cont.darkmode:hover #label, #cont.darkmode #input:focus{
+#cont.darkmode:hover #label, #cont.darkmode .input:focus{
     color: #ffffffd4;
 }
 #cont {
