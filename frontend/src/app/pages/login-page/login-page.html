@@ -1,6 +1,6 @@
-<div id="login-cont" [class.darkmode]="this.themeService.darkmode()">
+<form id="login-cont" [class.darkmode]="this.themeService.darkmode()" [formGroup]="this.loginForm" (ngSubmit)="login()">
     <h1>Login</h1>
-    <app-input-field name="Username" type="text"></app-input-field>
-    <app-input-field name="Password" type="password"></app-input-field>
-    <app-input-button name="Login"></app-input-button>
-</div>
+    <app-input-field name="Username" type="text" formControlName="username"></app-input-field>
+    <app-input-field name="Password" type="password" formControlName="password"></app-input-field>
+    <app-input-button name="Login" type="submit"></app-input-button>
+</form>
