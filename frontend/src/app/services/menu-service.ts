@@ -8,7 +8,7 @@ export class MenuService {
         this.visible.update(v => !v);
     }
 
-    setenuVis(visible: boolean){
+    setMenuVis(visible: boolean){
         this.visible.update(() => visible);
     }
 }
