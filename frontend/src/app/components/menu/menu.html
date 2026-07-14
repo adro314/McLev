@@ -1,5 +1,5 @@
 @if(menuService.visible()){
-    <div id="menu" [class.darkmode]="themeService.darkmode()">
+    <div id="menu" [class.darkmode]="themeService.darkmode()" #menu>
 
         @if (this.userService.loggedIn) {
             <app-menu-button [name]="this.userService.username"></app-menu-button>

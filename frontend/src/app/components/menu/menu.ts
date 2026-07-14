@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, ElementRef, HostListener, ViewChild } from '@angular/core';
 import { MenuService } from '../../services/menu-service';
 import { ThemeService } from '../../services/theme-service';
 import { NavigationService } from '../../services/navigation-service';
@@ -16,6 +16,18 @@ export class Menu {
   themeService = inject(ThemeService);
   navigationService = inject(NavigationService);
   userService = inject(UserService);
+
+  @ViewChild('menu')
+  menu!: ElementRef<HTMLElement>;
+
+  @HostListener('document:click', ['$event'])
+  onClick(event: MouseEvent) {
+    try {
+      if (!this.menu.nativeElement.contains(event.target as Node)) {
+        this.menuService.setMenuVis(false);
+      }
+    } catch {}
+  }
 
   getDarkmodeButtonName():string{
     if (this.themeService.darkmode()){
