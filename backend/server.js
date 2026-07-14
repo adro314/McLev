@@ -3,8 +3,9 @@ const readline = require("readline");
 const path = require("path");
 const { Client, Pool } = require("pg");
 const bcrypt = require("bcrypt");
-const cors = require("cors");
+//const cors = require("cors");
 require("dotenv").config();
+const session = require("express-session");
 
 const app = express();
 const router = express.Router();
@@ -25,9 +26,18 @@ app.use(express.json());
 
 app.use(express.static(path.join(__dirname,"public")));
 
+app.use(session({
+    secret: process.env.SESSION_SECRET,
+    resave: false,
+    saveUninitialized: false,
+    cookie: {
+        httpOnly: true
+    }
+}))
+
 app.use(router);
 
-app.use(cors());
+//app.use(cors());
 
 rl.on("line", (input) => {
     if (input == "stop") {
@@ -45,6 +55,10 @@ router.get("/api/getchapters", (req, res) => {
     const { book } = req.query;
     console.log(`got chapter request for book ${book}`);
     res.json({chapters:Object.keys(vocDataBase[book])});
+});
+
+router.get("/api/test", (req, res) =>{
+    res.json({v:true});
 });
 
 router.post("/api/getvoc", (req, res) => {
@@ -99,7 +113,7 @@ router.post("/api/login", async (req, res) => {
     }
 
     const result = await pool.query(`
-        SELECT password_hash
+        SELECT id, password_hash
         FROM users
         WHERE username = $1    
     `, [username]);
@@ -112,6 +126,7 @@ router.post("/api/login", async (req, res) => {
     }
 
     const hash = result.rows[0].password_hash;
+    const Uid = result.rows[0].id;
 
     const match = await bcrypt.compare(
         password,
@@ -125,10 +140,37 @@ router.post("/api/login", async (req, res) => {
         return;
     }
 
+    req.session.userId = Uid;
+
     res.json({
         valid: true
     });
 
+});
+
+router.post("/api/logout", (req,res) => {
+    req.session.destroy(err => {
+        if (err) {
+            return res.sendStatus(500);
+        }
+
+        res.clearCookie("connect.sid");
+        res.sendStatus(200);
+    })
+});
+
+router.get("/api/me", async (req,res) => {
+    if (!req.session.userId){
+        return res.status(401).json({
+            error: "not-logged-in"
+        })
+    }
+
+    const data = await getUserData(req.session.userId);
+
+    res.json({
+        username: data.username
+    })
 });
 
 
@@ -186,3 +228,18 @@ async function initpg(password) {
     return pool;
 }
 
+async function getUserData(id){
+    const res = await pool.query(
+        `
+        SELECT *
+        FROM users
+        WHERE id = $1
+        `,
+        [id]
+    )
+    if (res.rows.length === 0){
+        return null;
+    } else {
+        return res.rows[0]
+    }
+}

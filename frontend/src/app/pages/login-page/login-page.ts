@@ -2,7 +2,7 @@ import { Component, inject } from '@angular/core';
 import { ThemeService } from '../../services/theme-service';
 import { InputField } from '../../components/input-field/input-field';
 import { InputButton } from '../../components/input-button/input-button';
-import { ApiService } from '../../services/api-service';
+import { UserService } from '../../services/user-service';
 import { FormBuilder,ReactiveFormsModule } from '@angular/forms';
 
 @Component({
@@ -13,7 +13,7 @@ import { FormBuilder,ReactiveFormsModule } from '@angular/forms';
 })
 export class LoginPage {
   themeService = inject(ThemeService);
-  apiService = inject(ApiService);
+  userService = inject(UserService);
 
   private fb = inject(FormBuilder);
 
@@ -23,6 +23,6 @@ export class LoginPage {
   })
 
   login(){
-    console.log(this.loginForm.value);
+    this.userService.login(this.loginForm.value);
   }
 }
