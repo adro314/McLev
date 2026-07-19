@@ -16,13 +16,15 @@ export class UserService {
         console.log(await firstValueFrom(this.http.get('/api/test')));
     }
 
-    async login(data:any){
+    async login(data:any) : Promise<boolean>{
         const res = await firstValueFrom(this.http.post<LoginResp>('/api/login',data));
         if (res.valid){
             this.loggedIn = true;
             this.username = data.username;
             this.navigationService.goto("")
+            return true;
         }
+        return false;
     }
 }
 export interface LoginResp {

@@ -1,4 +1,8 @@
 <div id="cont" [class.darkmode]="themeService.darkmode()">
     <label [for]="name()" id="label">{{ name() }}</label>
     <input [type]="type()" [id]="name()" class="input" [name]="name()" autocomplete="off" [value]="this.value" (input)="onInput($event)" (blur)="onTouched()">
+    @if (this.error() !== undefined)
+    {
+        <div id="error">{{ this.error() }}</div>
+    }
 </div>

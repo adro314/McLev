@@ -46,3 +46,11 @@
 Input Design from:
 https://uiverse.io/alexruix/jolly-emu-80
 */
+
+
+
+#error {
+    padding-left: 5px;
+    font-size: 14px;
+    color: rgb(255, 40, 40);
+}
