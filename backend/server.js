@@ -44,6 +44,9 @@ rl.on("line", (input) => {
         console.log("Server closing...");
         process.exit(0);
     }
+    if (input == "secret") {
+        console.log(generateToken());
+    }
 })
 
 router.get("/api/getbooks", (req, res) => {
@@ -242,4 +245,8 @@ async function getUserData(id){
     } else {
         return res.rows[0]
     }
+}
+
+function generateToken(){
+    return crypto.randomBytes(64).toString("hex");
 }
